@@ -13,14 +13,14 @@ ALLOWED_ORIGINS = [
     "http://localhost:5174",
     "http://127.0.0.1:5173",
     "http://127.0.0.1:5174",
-    # Firebase Hosting — replace with your actual project URL after deploy
     "https://cric-iq-intelligence-platform.web.app",
     "https://cric-iq-intelligence-platform.firebaseapp.com",
 ]
 
-# Allow any origin in dev via env var
-if os.getenv("ALLOW_ALL_ORIGINS", "false").lower() == "true":
-    ALLOWED_ORIGINS = ["*"]
+# Pull in any extra origin set via env var (e.g. custom domain later)
+extra = os.getenv("FRONTEND_URL")
+if extra:
+    ALLOWED_ORIGINS.append(extra)
 
 app.add_middleware(
     CORSMiddleware,
