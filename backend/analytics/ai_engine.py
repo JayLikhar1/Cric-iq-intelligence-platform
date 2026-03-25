@@ -30,7 +30,7 @@ def _predict_player(bat_row: dict) -> dict:
 
 # ── Anomaly detection ─────────────────────────────────────────────────────────
 
-def _detect_anomaly(player: str, actual: float, bat_df: pd.DataFrame) -> dict | None:
+def _detect_anomaly(player: str, actual: float, bat_df: pd.DataFrame):
     row = bat_df[bat_df["player"].str.lower() == player.lower()]
     if row.empty:
         return None

@@ -50,6 +50,6 @@ def extract_team_names(query: str, known_teams: list) -> list:
             found.append(t)
     return found[:2]
 
-def extract_number(query: str) -> int | None:
+def extract_number(query: str):
     nums = re.findall(r'\d+', query)
     return int(nums[0]) if nums else None
