@@ -1,8 +1,13 @@
 import axios from 'axios'
 
-const BASE = '/api'
+// In production (Firebase), point directly to Render backend.
+// In dev, Vite proxy handles /api → localhost:8001
+const PROD_API = 'https://crikiq-api.onrender.com'
+const isDev = import.meta.env.DEV
 
-const api = axios.create({ baseURL: BASE, timeout: 10000 })
+const BASE = isDev ? '/api' : PROD_API
+
+const api = axios.create({ baseURL: BASE, timeout: 15000 })
 
 export const matchesAPI = {
   getAll: () => api.get('/matches/'),

@@ -1,12 +1,30 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import os
 from routes import matches, players, teams, predict, strategy, insights, venues, awards, advanced, ai_chat
+
+import os
 
 app = FastAPI(title="CrikIQ API", version="1.0.0", description="Cricket Intelligence Platform")
 
+ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:5174",
+    # Firebase Hosting — replace with your actual project URL after deploy
+    "https://cric-iq-intelligence-platform.web.app",
+    "https://cric-iq-intelligence-platform.firebaseapp.com",
+]
+
+# Allow any origin in dev via env var
+if os.getenv("ALLOW_ALL_ORIGINS", "false").lower() == "true":
+    ALLOWED_ORIGINS = ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173", "http://localhost:5174", "http://127.0.0.1:5173", "http://127.0.0.1:5174"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
